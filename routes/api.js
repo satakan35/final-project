@@ -30,7 +30,7 @@ router.post('/save', (req, res) => {
         }
         // BlogPost
         return res.json({
-            msg: 'Your data has been saved!!!!!!'
+            msg: 'Your data has been saved!!!!!! for Mongo'
         });
     });
 });
