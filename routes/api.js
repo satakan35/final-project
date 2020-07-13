@@ -2,13 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const BlogPost = require('../models/blogPost');
+const JobPosts = require('../models/jobPosts');
 
 
 // Routes
 router.get('/', (req, res) => {
 
-    BlogPost.find({  })
+    JobPosts.find({  })
         .then((data) => {
             console.log('Data: ', data);
             res.json(data);
@@ -21,9 +21,9 @@ router.get('/', (req, res) => {
 router.post('/save', (req, res) => {
     const data = req.body;
 
-    const newBlogPost = new BlogPost(data);
+    const newJobPost = new JobPosts(data);
 
-    newBlogPost.save((error) => {
+    newJobPost.save((error) => {
         if (error) {
             res.status(500).json({ msg: 'Sorry, internal server errors' });
             return;

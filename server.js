@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080; // Step 1
 const routes = require('./routes/api');
 
 // Step 2
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mern_youtube', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/job_search', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -29,12 +29,8 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 
-
 // HTTP request logger
 app.use(morgan('tiny'));
 app.use('/api', routes);
-
-
-
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));

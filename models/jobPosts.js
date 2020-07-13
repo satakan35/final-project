@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // Schema
 const Schema = mongoose.Schema;
-const BlogPostSchema = new Schema({
+const JobPostSchema = new Schema({
     title: String,
     body: String,
     date: {
@@ -13,6 +13,6 @@ const BlogPostSchema = new Schema({
 });
 
 // Model
-const BlogPost = mongoose.model('BlogPost', BlogPostSchema);
+const JobPost = mongoose.model('JobPosts', JobPostSchema);
 
-module.exports =  BlogPost;
+module.exports =  JobPost;
