@@ -1,8 +1,45 @@
 const express = require('express');
-
 const router = express.Router();
 
-const JobPosts = require('../models/jobPosts');
+// Accessing our models and passport for login/signup 
+
+const db = require("../models")
+const passport = require("../config/passport")
+
+// LOGIN AND SIGNUP ROUTES SECTION
+
+// Using the passport.authenticate middleware with our local strategy.
+// If the user has valid login credentials, send them to the members page.
+// Otherwise the user will be sent an error
+router.post("/login", passport.authenticate("local"), function (req, res) {
+    res.json(req.user);
+});
+
+// Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
+// how we configured our Mongoose User Model. If the user is created successfully, proceed to log the user in,
+// otherwise send back an error
+router.post("/signup", function (req, res) {
+    console.log(req.body)
+   
+    db.User.create({
+        firstName: req.body.payload.firstName,
+        lastName: req.body.payload.lastName,
+        email: req.body.payload.email,
+        password: req.body.payload.password
+    })
+        .then(function () {
+            console.log("user successfully added")
+            res.redirect(307, "/login");
+        })
+        .catch(function (err) {
+            console.log(err.message)
+            res.status(401).json(err);
+        });
+});
+
+
+
+
 
 
 // Routes
@@ -43,7 +80,5 @@ router.get('/name', (req, res) => {
     };
     res.json(data);
 });
-
-
 
 module.exports = router;
