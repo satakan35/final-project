@@ -66,7 +66,7 @@ class Search extends React.Component {
                             jobtitle={result.jobtitle}
                             company={result.company}
                             formattedLocationFull={result.formattedLocationFull}
-                            snipped={result.snipped}
+                            snippet={result.snippet}
                             date={result.date}
                             url={result.url}
                          />

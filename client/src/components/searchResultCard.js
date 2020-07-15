@@ -7,7 +7,7 @@ function SearchResultCard(props) {
                 <h2>{props.jobtitle}</h2>
                 <h3>{props.company}</h3>
                 <h4>{props.formattedLocationFull}</h4>
-                <p>{props.snipped}</p>
+                <p>{props.snippet}</p>
                 <p>Posted: {props.date}</p>
                 <a href={props.url}>Apply</a>
             </div>
