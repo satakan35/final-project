@@ -1,8 +1,13 @@
 // Requiring bcrypt for password hashing and mongoose to create User model schema
-const bcrypt = require("brcyrptjs");
-const mongoose = require("mongoose"); 
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose'); 
 // Creating our User model
 const Schema = mongoose.Schema
+
+var validateEmail = function (email) {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email)
+};
 
 const UserSchema = new Schema({
     firstName: {
@@ -28,9 +33,28 @@ const UserSchema = new Schema({
 });
 
 // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
-UserSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
+UserSchema.methods = {
+    validPassword: function (inputPassword) {
+        return bcrypt.compareSync(inputPassword, this.password);
+    },
+    hashPassword: function (plainPassword) {
+        return bcrypt.hashSync(plainPassword, 10);
+    }
 };
+
+
+
+UserSchema.pre("save", function (next) {
+    if (!this.password) {
+        console.log ("No password provided")
+        next();
+    }
+
+    else {
+        console.log("Password presaved")
+        this.password = this.hashPassword(this.password)
+    }
+})
 
 const User = mongoose.model("User", UserSchema)
 
