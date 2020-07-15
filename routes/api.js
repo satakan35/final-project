@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const request = require('request');
 
 // Accessing our models and passport for login/signup 
 
@@ -80,5 +81,27 @@ router.get('/name', (req, res) => {
     };
     res.json(data);
 });
+
+// Takes query parameters from search form and generates URL string for API call
+router.post('/indeed', (req, res) => {
+
+    const baseURL = "https://api.indeed.com/ads/apisearch?v=2&userip=1.2.3.4&format=json&limit=25";
+    const publisherId = "&publisher=1397045879077994";
+    console.log(req.body)
+    let query = `&q=${(req.body.query).toLowerCase().split(" ").join("+")}`;
+    let location = `&l=${(req.body.location).split(" ").join("+")}`;
+    let radius = `&radius=${(req.body.radius)}`;
+    let jobType = `&jt=${(req.body.jobType).toLowerCase().split("-").join("")}`;
+
+    const queryURL = baseURL + publisherId + query + location + radius + jobType;
+
+     request({ url: queryURL }, (error, response, body) => {
+          if (error || response.statusCode !== 200) {
+            return res.status(500).json({ type: 'error', message: err.message });
+          }
+          res.json(JSON.parse(body));
+        }
+      )
+})
 
 module.exports = router;
