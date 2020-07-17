@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
+const JobPosts = require("../models/JobPosts");
 
 // Accessing our models and passport for login/signup 
 
