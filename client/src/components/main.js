@@ -6,6 +6,7 @@ import About from './about';
 import Contact from './contact';
 import logIn from './logIn';
 import Register from './register';
+import Search from './search';
 
 
 const Main = () => (
@@ -15,6 +16,7 @@ const Main = () => (
     <Route path="/contact" component={Contact} />
     <Route path="/login" component={logIn} />
     <Route path="/register" component={Register} />
+    <Route path="/search" component={Search} />
   </Switch>
 )
 
