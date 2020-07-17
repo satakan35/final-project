@@ -15,6 +15,7 @@ class App extends Component {
                 <Link to="/about">About Us</Link>
                 <Link to="/logIn">Log In</Link>
                 <Link to="/contact">Contact Us</Link>
+                <Link to="/search">Search</Link>
             </Navigation>
         </Header>
         <Drawer title={<Link style={{textDecoration: 'none', color: 'black'}} to="/">JobSearchApp</Link>}>
@@ -23,6 +24,7 @@ class App extends Component {
               <Link to="/about">About Us</Link>
               <Link to="/logIn">Log In</Link>
               <Link to="/contact">Contact Us</Link>
+              <Link to="/search">Search</Link>
             </Navigation>
         </Drawer>
         <Content>
