@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
+const passport = require("./config/passport")
+var session = require("express-session")
 
 const app = express();
 const PORT = process.env.PORT || 8080; // Step 1
@@ -22,6 +24,11 @@ mongoose.connection.on('connected', () => {
 // Data parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Step 3
 

@@ -33,28 +33,33 @@ const UserSchema = new Schema({
 });
 
 // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
-UserSchema.methods = {
-    validPassword: function (inputPassword) {
+UserSchema.methods.validPassword = function (inputPassword) {
         return bcrypt.compareSync(inputPassword, this.password);
-    },
-    hashPassword: function (plainPassword) {
-        return bcrypt.hashSync(plainPassword, 10);
-    }
-};
+    };
 
 
+// Creating pre-save hook to hash user's password before storing user to database.  
 
-UserSchema.pre("save", function (next) {
-    if (!this.password) {
-        console.log ("No password provided")
-        next();
-    }
+UserSchema.pre('save', function (next) {
+    var user = this;
 
-    else {
-        console.log("Password presaved")
-        this.password = this.hashPassword(this.password)
-    }
-})
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
+
+    // generate a salt
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) return next(err);
+
+        // hash the password using our new salt
+        bcrypt.hash(user.password, salt, function (err, hash) {
+            if (err) return next(err);
+
+            // override the cleartext password with the hashed one
+            user.password = hash;
+            next();
+        });
+    });
+});
 
 const User = mongoose.model("User", UserSchema)
 

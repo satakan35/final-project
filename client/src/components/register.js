@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import logo from "../logo.svg"
 import axios from 'axios';
 
-
-
 class Register extends Component {
 
   state = {
@@ -45,16 +43,13 @@ class Register extends Component {
 
     console.log(payload)
 
-    axios.post("api/signup", {payload})
-      .then((error, dbUser) => {
-        if (error) {
-          console.log(error.message)
-        }
-        else {
-          console.log(dbUser)
-          console.log("User added to database")
-          this.resetUserInputs();
-        }
+    axios.post("api/signup", payload)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        console.log(err.response);
       })
   }
 
