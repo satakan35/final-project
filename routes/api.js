@@ -31,9 +31,9 @@ router.post("/signup", function (req, res) {
         email: req.body.email,
         password: req.body.password
     })
-        .then(function () {
+        .then(function (dbUser) {
             console.log("user successfully added")
-            res.redirect(307, "/login");
+            res.redirect(307, "/api/login");
         })
         .catch(function (err) {
             console.log(err.message)

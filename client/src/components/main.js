@@ -12,6 +12,7 @@ import Search from './search';
 const Main = () => (
   <Switch>
     <Route exact path="/" component={LandingPage} />
+    <Route path="/members" component={LandingPage} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
     <Route path="/login" component={logIn} />
