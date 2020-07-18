@@ -46,6 +46,7 @@ class Register extends Component {
     axios.post("api/signup", payload)
       .then(res => {
         console.log(res);
+        window.location.replace("/members");
       })
       .catch(err => {
         console.log(err);
@@ -119,7 +120,7 @@ class Register extends Component {
             </div>
             <div className="mt-4">
               <div className="d-flex justify-content-center links">
-                Have an account? <a href="/login" className="ml-2"></a>
+               <a href="/login" className="ml-2">Have an account?</a>
               </div>
             </div>
 
